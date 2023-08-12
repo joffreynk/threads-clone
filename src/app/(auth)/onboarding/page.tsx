@@ -1,8 +1,10 @@
+//app/page.tsx
+import { UserButton } from "@clerk/nextjs";
 
-async function page() {
+export default function OnBoarding() {
   return (
-    <div>page</div>
-  )
+    <div>
+      <UserButton afterSignOutUrl="/" />
+    </div>
+  );
 }
-
-export default page
