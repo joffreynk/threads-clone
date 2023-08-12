@@ -7,6 +7,7 @@ import TopNavBar from "@/components/shared/topnavbar";
 import LeftSideBar from "@/components/shared/LeftSideBar";
 import RightSideBar from "@/components/shared/RightSideBar";
 import Footer from '@/components/shared/Footer'
+import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,20 +22,23 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <TopNavBar />
-        <main>
-          <LeftSideBar />
-          <section className='main-container'>
-            <div className='w-full max-w-4xl'>
-              {children}
-            </div>
-          </section>
-          <RightSideBar />
-        </main>
-        <Footer />
-      </body>
-    </html>
+       <ClerkProvider>
+
+        <html lang="en">
+          <body className={inter.className}>
+            <TopNavBar />
+            <main>
+              <LeftSideBar />
+              <section className='main-container'>
+                <div className='w-full max-w-4xl'>
+                  {children}
+                </div>
+              </section>
+              <RightSideBar />
+            </main>
+            <Footer />
+          </body>
+        </html>
+       </ClerkProvider>
   );
 }
