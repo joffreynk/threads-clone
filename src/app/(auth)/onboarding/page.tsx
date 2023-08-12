@@ -4,7 +4,7 @@ import { UserButton } from "@clerk/nextjs";
 export default function OnBoarding() {
   return (
     <div>
-      <UserButton afterSignOutUrl="/" />
+      <h1>on boarding</h1>
     </div>
   );
 }
