@@ -8,12 +8,11 @@ export default async function OnBoarding() {
   const userData = {
     id: user?.id,
     objectId: userInfo?._id,
-    username:userInfo?.username || user?.username,
-    name: userInfo?.name || `${user?.firstName +' '+ user?.lastName}`,
+    username: userInfo?.username || user?.username,
+    name: userInfo?.name || `${user?.firstName + " " + user?.lastName}`,
     bio: userInfo?.bio || "",
-    image: userInfo?.image || user?.imageUrl
-
-  }
+    image: userInfo?.image || user?.imageUrl,
+  };
   return (
     <main className="mx-auto flex max-w-3xl flex-col justify-startpx-10 py-20">
       <h1 className="head-text">Onboarding</h1>

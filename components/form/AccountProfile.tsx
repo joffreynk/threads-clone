@@ -8,11 +8,9 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
@@ -37,10 +35,10 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
   const form = useForm({
     resolver: zodResolver(UserValidation),
     defaultValues: {
-      profile_photo: '',
-      name:'',
-      username: '',
-      bio: '',
+      profile_photo: user?.image || "",
+      name: user?.name || "",
+      username: user?.username || "",
+      bio: user?.bio || "",
     },
   });
 
@@ -63,7 +61,7 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
         {" "}
         <FormField
           control={form.control}
-          name="username"
+          name="profile_photo"
           render={({ field }) => (
             <FormItem className="flex items-center gap-4">
               <FormLabel className="account-form_image-label">
@@ -71,17 +69,17 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
                   <Image
                     src={field.value}
                     className="rounded-full object-contain"
-                    width={28}
-                    height={28}
+                    width={96}
+                    height={96}
                     alt="profile picture"
                     priority
                   />
                 ) : (
                   <Image
                     src="./assets/profile.svg"
-                    className="object-contain"
-                    width={28}
-                    height={28}
+                    className="rounded-full object-contain"
+                    width={96}
+                    height={96}
                     alt="profile picture"
                   />
                 )}
@@ -102,7 +100,7 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="flex flex-col gap-3 w-full">
+            <FormItem className="flex flex-col gap-1 w-full">
               <FormLabel className="text-base-semibold text-light-2">
                 Full Name
               </FormLabel>
@@ -120,9 +118,9 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="flex flex-col gap-3 w-full">
+            <FormItem className="flex flex-col gap-1 w-full">
               <FormLabel className="text-base-semibold text-light-2">
-                UserName
+                Username
               </FormLabel>
               <FormControl className="flex-1 text-base-semibold text-gray-200">
                 <Input
@@ -138,13 +136,13 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
           control={form.control}
           name="bio"
           render={({ field }) => (
-            <FormItem className="flex flex-col gap-3 w-full">
+            <FormItem className="flex flex-col gap-1 w-full">
               <FormLabel className="text-base-semibold text-light-2">
                 Bio
               </FormLabel>
               <FormControl className="flex-1 text-base-semibold text-gray-200">
                 <Textarea
-                  rows={10}
+                  rows={6}
                   className="account-form_input no-focus"
                   {...field}
                 />
