@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input";
 
 import { UserValidation } from "@/lib/validations/user";
 import Image from "next/image";
+import { ChangeEvent } from "react";
+import { Textarea } from "../ui/textarea";
 type AccountProfileProps = {
   user: {
     id: string;
@@ -42,6 +44,10 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
     },
   });
 
+  const handleImage = (e: ChangeEvent, fieldChange: (value: string) =>void)=>{
+    e.preventDefault();
+  }
+
     function onSubmit(values: z.infer<typeof UserValidation>) {
       console.log('SUBMITTING');
       
@@ -64,33 +70,91 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
                 {field.value ? (
                   <Image
                     src={field.value}
-                    className="account-form_image"
-                    width={90}
-                    height={90}
+                    className="rounded-full object-contain"
+                    width={28}
+                    height={28}
                     alt="profile picture"
                     priority
                   />
                 ) : (
                   <Image
-                    src='./assets/profile.svg'
-                    className="account-form_image"
-                    width={90}
-                    height={90}
+                    src="./assets/profile.svg"
+                    className="object-contain"
+                    width={28}
+                    height={28}
                     alt="profile picture"
                   />
                 )}
               </FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
+              <FormControl className="flex-1 text-base-semibold text-gray-200">
+                <Input
+                  type="file"
+                  accept="image/*"
+                  placeholder="Upload Photo"
+                  className="account-form_image-input"
+                  onChange={(e) => handleImage(e, field.onChange)}
+                />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-3 w-full">
+              <FormLabel className="text-base-semibold text-light-2">
+                Full Name
+              </FormLabel>
+              <FormControl className="flex-1 text-base-semibold text-gray-200">
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-3 w-full">
+              <FormLabel className="text-base-semibold text-light-2">
+                UserName
+              </FormLabel>
+              <FormControl className="flex-1 text-base-semibold text-gray-200">
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="bio"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-3 w-full">
+              <FormLabel className="text-base-semibold text-light-2">
+                Bio
+              </FormLabel>
+              <FormControl className="flex-1 text-base-semibold text-gray-200">
+                <Textarea
+                  rows={10}
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="bg-primary-500 text-base-semibold">
+          Submit
+        </Button>
       </form>
     </Form>
   );

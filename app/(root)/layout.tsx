@@ -23,23 +23,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-       <ClerkProvider>
-
-        <html lang="en">
-          <body className={inter.className}>
-            <TopNavBar />
-            <main className='flex'>
-              <LeftSideBar />
-              <section className='main-container'>
-                <div className='w-full max-w-4xl'>
-                  {children}
-                </div>
-              </section>
-              <RightSideBar />
-            </main>
-            <Footer />
-          </body>
-        </html>
-       </ClerkProvider>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${inter.className}  bg-dark-1`}>
+          <TopNavBar />
+          <main className="flex">
+            <LeftSideBar />
+            <section className="main-container">
+              <div className="w-full max-w-4xl">{children}</div>
+            </section>
+            <RightSideBar />
+          </main>
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
