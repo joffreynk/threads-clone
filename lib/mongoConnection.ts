@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 let isConnected = false;
 
-export default async function connect() {
+export default async function dbConnection() {
   mongoose.set("strictQuery", true);
   if (!process.env.MONGODB_URL) {
     console.log("No connection to Database");
