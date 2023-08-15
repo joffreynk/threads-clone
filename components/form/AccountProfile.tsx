@@ -19,6 +19,8 @@ import { UserValidation } from "@/lib/validations/user";
 import Image from "next/image";
 import { Textarea } from "../ui/textarea";
 import { UploadButton } from "@/lib/uploadthing";
+import { usePathname, useRouter } from "next/navigation";
+import createAndUpdateUser from "@/lib/actions/user.actions";
 type AccountProfileProps = {
   user: {
     id: string;
@@ -32,6 +34,9 @@ type AccountProfileProps = {
 }
 
 const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
+  const pathname = usePathname();
+  const router = useRouter();
+
   const form = useForm({
     resolver: zodResolver(UserValidation),
     defaultValues: {
@@ -43,11 +48,13 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
   });
 
   async function onSubmit(values: z.infer<typeof UserValidation>) {
-    console.log('SUBMITTING');
-    
-    console.log('====================================');
-    console.log(values);
-    console.log('====================================');
+    const {name, bio, username, profile_photo} = values
+    await createAndUpdateUser({ name, bio, username, image: profile_photo, userId: user.id.toString(), path: pathname });
+    if(pathname==='/profile/edit') {
+      router.back();
+    }else {
+      router.push('/')
+    }
   }
 
   return (
