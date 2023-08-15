@@ -10,6 +10,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
@@ -44,7 +45,9 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
   async function onSubmit(values: z.infer<typeof UserValidation>) {
     console.log('SUBMITTING');
     
+    console.log('====================================');
     console.log(values);
+    console.log('====================================');
   }
 
   return (
@@ -93,6 +96,7 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
                   }}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -111,6 +115,7 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -129,6 +134,7 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -147,6 +153,7 @@ const AccountProfile = ({user, btnTitle}: AccountProfileProps) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

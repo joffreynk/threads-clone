@@ -29,6 +29,4 @@ export default async function createAndUpdateUser(
    } catch (error: any) {
     throw new Error(`Failed to create/update user: ${error.message}`);
    }
-
-    
 }
