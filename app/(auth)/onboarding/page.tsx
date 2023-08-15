@@ -1,9 +1,12 @@
 import AccountProfile from "@/components/form/AccountProfile";
+import { getUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 export default async function OnBoarding() {
   const user  = await currentUser();
-  const userInfo = {};
+  if(!user) redirect('/sign-in')
+  const userInfo = await getUser(user?.id.toString());
 
   const userData = {
     id: user?.id,

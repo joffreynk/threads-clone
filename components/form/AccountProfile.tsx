@@ -20,7 +20,7 @@ import Image from "next/image";
 import { Textarea } from "../ui/textarea";
 import { UploadButton } from "@/lib/uploadthing";
 import { usePathname, useRouter } from "next/navigation";
-import createAndUpdateUser from "@/lib/actions/user.actions";
+import {createAndUpdateUser} from "@/lib/actions/user.actions";
 type AccountProfileProps = {
   user: {
     id: string;
