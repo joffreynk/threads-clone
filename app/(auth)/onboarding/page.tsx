@@ -17,7 +17,7 @@ export default async function OnBoarding() {
     image: userInfo?.image || user?.imageUrl,
   };
   return (
-    <main className="mx-auto flex max-w-3xl flex-col justify-startpx-10 py-20">
+    <main className="mx-auto flex max-w-3xl flex-col justify-startpx-10 py-6 px-3 md:py-20">
       <h1 className="head-text">Onboarding</h1>
       <p className="mt-3 text-base-regular text-light-2">
         Complete your profile now to use Threads

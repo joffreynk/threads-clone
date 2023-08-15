@@ -1,3 +1,4 @@
+import ThreadPost from '@/components/form/ThreadPost';
 import { getUser } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs'
 import { redirect } from 'next/navigation';
@@ -7,10 +8,13 @@ export default async function page() {
     const user  = await currentUser();
     if(!user) redirect('/sign-in')
     const userInfo = await getUser(user?.id.toString());
-    if(!userInfo.onboarding) redirect('/onboarding');
-    
+    if (!userInfo.onboarded) redirect("/onboarding");
+
   return (
-    <div>page</div>
-  )
+    <>
+      <h1 className="head-text">Create Thread</h1>
+      <ThreadPost userId={userInfo._id} />
+    </>
+  );
 }
 
