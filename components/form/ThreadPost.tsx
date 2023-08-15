@@ -9,6 +9,7 @@ import { ThreadValidation } from "@/lib/validations/thread";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { createThread } from "@/lib/actions/thread.actions";
 
 export default function ThreadPost({ userId }: { userId: string }) {
   const pathname = usePathname();
@@ -22,13 +23,16 @@ export default function ThreadPost({ userId }: { userId: string }) {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof ThreadValidation>) {}
+  async function onSubmit(values: z.infer<typeof ThreadValidation>) {
+    await createThread({text: values.thread, author: values.accountId, path: pathname});
+    router.push("/");
+  }
 
   return (
-    <Form {...form}>
+    <Form {...form} >
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-start gap-10"
+        className="flex flex-col justify-start gap-10 mt-16 md:mt-20"
       >
         <FormField
           control={form.control}
