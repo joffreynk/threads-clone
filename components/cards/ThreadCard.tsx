@@ -3,6 +3,7 @@ type Props = {
   currentUser: string,
   parentId: string,
   content: string,
+  createdAt: string,
   author: {
     name: string,
     image: string,
@@ -25,7 +26,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-export default function ThreadCard({ id, currentUser, parentId, content, author, community, comments, isCommented}: Props) {
+export default function ThreadCard({ id, currentUser, parentId, content, author, community, createdAt, comments, isCommented}: Props) {
   return (
     <article className="flex w-full flex-col rounded-xl bg-dark-2 p-7">
       <div className="flex items-start justify-between">
