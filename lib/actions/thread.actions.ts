@@ -1,4 +1,4 @@
-'use server';
+"use server";
 import { revalidatePath } from "next/cache";
 
 import Thread from "../models/thread.model";
@@ -12,7 +12,12 @@ type params = {
   path: string;
 };
 
-export const createThread = async ({ text, author, communityId, path }: params) => {
+export const createThread = async ({
+  text,
+  author,
+  communityId,
+  path,
+}: params) => {
   try {
     await dbConnection();
     const createdThread = await Thread.create({
@@ -27,7 +32,7 @@ export const createThread = async ({ text, author, communityId, path }: params) 
         threads: createdThread._id,
       },
     });
-    
+
     revalidatePath(path);
   } catch (error: any) {
     console.log(`Error creating thread ${error.message}`);
@@ -35,10 +40,10 @@ export const createThread = async ({ text, author, communityId, path }: params) 
   }
 };
 
-export const getThreads = async(pageNumber = 1, pageSize =20)=>{
+export const getThreads = async (pageNumber = 1, pageSize = 20) => {
   try {
     await dbConnection();
-    const skipAmount = (pageNumber-1) * pageSize
+    const skipAmount = (pageNumber - 1) * pageSize;
 
     const threads = await Thread.find({ parentId: { $in: [null, undefined] } })
       .sort({ createdAt: "desc" })
@@ -52,17 +57,54 @@ export const getThreads = async(pageNumber = 1, pageSize =20)=>{
           model: User,
           select: "_id name parentId image",
         },
-      });
+      })
+      .exec();
 
-    const totalThreads = await Thread.countDocuments({parentId: {$in: [null, undefined]}})
-    // const threads = await threadsQuery.exec()
+    const totalThreads = await Thread.countDocuments({
+      parentId: { $in: [null, undefined] },
+    });
 
     const isNext = totalThreads > skipAmount + threads.length;
-    
-    return {threads, isNext};
-    
+
+    return { threads, isNext };
   } catch (error: any) {
     console.log(`Error fetching threads ${error.message}`);
     throw new Error(`Error fetching threads ${error.message}`);
   }
-}
+};
+
+export const getThreadById = async (id: string) => {
+  try {
+    dbConnection();
+    const thread = await Thread.findById(id)
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id name parentId image",
+      })
+      .populate({
+        path: "children",
+        model: Thread,
+        populate: [
+          {
+            path: "author",
+            model: User,
+            select: "_id name parentId image",
+          },
+          {
+            path: "children",
+            model: Thread,
+            populate: {
+              path: "author",
+              model: User,
+              select: "_id name parentId image",
+            },
+          },
+        ],
+      })
+      .exec();
+    return thread;
+  } catch (error: any) {
+    throw new Error(`Error fetching thread ${error.message}`);
+  }
+};

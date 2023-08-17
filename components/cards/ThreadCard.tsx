@@ -60,7 +60,7 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
                   className="cursor-pointer  object-contain"
                   alt="like"
                 />
-                <Link href={`thread/${id}`}>
+                <Link href={`/thread/${id}`}>
                   <Image
                     src="/assets/reply.svg"
                     width={24}
@@ -85,7 +85,7 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
                 />
               </div>
 
-              {isCommented && <Link href={`thread/${id}`}>
+              {isCommented && <Link href={`/thread/${id}`}>
                 <p className='mt-1 text-subtle-medium text-gray-1'>{comments.length} replies</p>
                 </Link>}
             </div>
