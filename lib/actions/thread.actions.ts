@@ -12,6 +12,8 @@ type params = {
   path: string;
 };
 
+type Comment = {threadId: String, currentuserId: String, thread: String, path: String}
+
 export const createThread = async ({
   text,
   author,
@@ -106,5 +108,33 @@ export const getThreadById = async (id: string) => {
     return thread;
   } catch (error: any) {
     throw new Error(`Error fetching thread ${error.message}`);
+  }
+};
+
+export const addCommentThread = async ({
+  threadId,
+  currentuserId,
+  thread,
+  path,
+}: Comment) => {
+  try {
+    await dbConnection();
+    //commented thread
+    const originalThread = await Thread.findById(threadId);
+    if (!originalThread) throw new Error("Could not find thread to comment on");
+
+    // new thread
+    const newThread = await Thread.create({
+      thread,
+      author: currentuserId,
+      parentId: threadId,
+    });
+
+    await originalThread.children.push(newThread._id);
+    
+    await originalThread.save();
+
+  } catch (error: any) {
+    throw new Error(`Error creating thread coment ${error.message}`);
   }
 };
