@@ -53,8 +53,8 @@ export default function ThreadPost({ userId }: { userId: string }) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-primary-500 text-base-semibold">
-          Submit
+        <Button type="submit" className="bg-primary-500 text-body-bold text-light-2">
+          Post Thread
         </Button>
       </form>
     </Form>
