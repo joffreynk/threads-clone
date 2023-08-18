@@ -17,6 +17,7 @@ import {
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 
 export default function ThreadComment({
   threadId,
@@ -38,18 +39,15 @@ export default function ThreadComment({
   });
 
   async function onSubmit(values: z.infer<typeof CommentValidation>) {
-    console.log('====================================');
+    console.log("====================================");
     console.log(values);
-    console.log('====================================');
+    console.log("====================================");
     // router.push("/");
   }
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex items-center justify-start gap-2 md:gap-5  mt-8 md:mt-16"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="comment-form">
         <FormField
           control={form.control}
           name="thread"
@@ -65,15 +63,19 @@ export default function ThreadComment({
                 />
               </FormLabel>
               <FormControl className="flex-1 text-base-semibold text-gray-200">
-                <Input className="account-form_input no-focus" {...field} />
+                <Textarea
+                  rows={3}
+                  className="account-form_input no-focus"
+                  placeholder="Comment........ "
+                  {...field}
+                />
               </FormControl>
-              <FormMessage className="just" />
             </FormItem>
           )}
         />
         <Button
           type="submit"
-          className="bg-primary-500 text-base-semibold text-light-2"
+          className="bg-primary-500 text-base-semibold self-end text-light-2"
         >
           Reply
         </Button>
