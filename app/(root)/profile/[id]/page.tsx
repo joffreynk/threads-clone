@@ -1,5 +1,4 @@
 import ThreadCard from "@/components/cards/ThreadCard";
-import ThreadPost from "@/components/form/ThreadPost";
 import ProfilePage from "@/components/shared/ProfileHeader";
 import { getThreads } from "@/lib/actions/thread.actions";
 import {  getUserById } from "@/lib/actions/user.actions";
@@ -18,7 +17,14 @@ export default async function page({params}: {params: {id: string}}) {
 
   return (
     <section>
-      <ProfilePage />
+      <ProfilePage
+        accountId={userInfo.id}
+        authUserId={user.id}
+        name={userInfo.name}
+        username={userInfo.username}
+        imageUrl={userInfo.image}
+        bio={userInfo.bio}
+      />
 
       <div className="mt-10 flex flex-col gap-6">
         {threads.map((childItem: any) => (
