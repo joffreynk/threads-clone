@@ -7,7 +7,7 @@ type Props = {
   author: {
     name: string;
     image: string;
-    id: string;
+    _id: string;
   };
   community: {
     id: string;
@@ -36,7 +36,7 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
       <div className="flex items-start justify-between">
         <div className="flex w-full flex-1 flex-row gap-4">
           <div className="flex flex-col items-center">
-            <Link href={`/profile/${author.id}`} className="relative h-11 w-11">
+            <Link href={`/profile/${author._id}`} className="relative h-11 w-11">
               <Image
                 src={author.image}
                 alt="author image"
@@ -48,7 +48,7 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
           </div>
 
           <div className="flex w-full flex-col">
-            <Link href={`/profile/${author.id}`} className="w-f it">
+            <Link href={`/profile/${author._id}`} className="w-f it">
               <h4 className="cursor-pointer text-base-regular text-light-1">
                 {author.name}
               </h4>

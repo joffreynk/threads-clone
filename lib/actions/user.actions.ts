@@ -51,3 +51,14 @@ export  async function getUser(id: String) {
     return new Error(`Failed to create/update user: ${error.message}`);
   }
 }
+
+
+export async function getUserById(id: String) {
+  try {
+    await dbConnection();
+    return await User.findById(id );
+  } catch (error: any) {
+    console.log(`Failed to create/update user: ${error.message}`);
+    return new Error(`Failed to create/update user: ${error.message}`);
+  }
+}
