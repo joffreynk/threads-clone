@@ -12,7 +12,12 @@ type params = {
   path: string;
 };
 
-type Comment = {threadId: String, currentuserId: String, thread: String, path: String}
+type Comment = {
+  threadId: string;
+  currentUserId: string;
+  text: string;
+  path: string;
+};
 
 export const createThread = async ({
   text,
@@ -113,8 +118,8 @@ export const getThreadById = async (id: string) => {
 
 export const addCommentThread = async ({
   threadId,
-  currentuserId,
-  thread,
+  currentUserId,
+  text,
   path,
 }: Comment) => {
   try {
@@ -125,15 +130,18 @@ export const addCommentThread = async ({
 
     // new thread
     const newThread = await Thread.create({
-      thread,
-      author: currentuserId,
+      text,
+      author: currentUserId,
       parentId: threadId,
     });
 
+    // Update parent thread
+
     await originalThread.children.push(newThread._id);
-    
+
     await originalThread.save();
 
+    revalidatePath(path);
   } catch (error: any) {
     throw new Error(`Error creating thread coment ${error.message}`);
   }

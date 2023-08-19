@@ -26,7 +26,7 @@ export default async function Home() {
               community={thread.community}
               createdAt={thread.createdAt}
               comments={thread.children}
-              isCommented={thread.children.lengh > 0}
+              isCommented={thread.children.length > 0}
             />
           ))
         )}

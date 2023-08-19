@@ -85,9 +85,14 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
                 />
               </div>
 
-              {isCommented && <Link href={`/thread/${id}`}>
-                <p className='mt-1 text-subtle-medium text-gray-1'>{comments.length} replies</p>
-                </Link>}
+              {isCommented && (
+                <Link href={`/thread/${id}`}>
+                  <p className="mt-1 text-subtle-medium text-gray-1">
+                    {comments.length}{" "}
+                    {comments.length > 1 ? "Replies" : "Reply"}
+                  </p>
+                </Link>
+              )}
             </div>
           </div>
         </div>

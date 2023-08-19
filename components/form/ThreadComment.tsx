@@ -12,12 +12,11 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "../ui/form";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { addCommentThread } from "@/lib/actions/thread.actions";
 
 export default function ThreadComment({
   threadId,
@@ -39,10 +38,13 @@ export default function ThreadComment({
   });
 
   async function onSubmit(values: z.infer<typeof CommentValidation>) {
-    console.log("====================================");
-    console.log(values);
-    console.log("====================================");
-    // router.push("/");
+    await addCommentThread({
+      path: pathname,
+      text: values.thread,
+      threadId: threadId,
+      currentUserId,
+    });
+    router.push("/");
   }
 
   return (

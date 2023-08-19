@@ -29,13 +29,13 @@ export default async function page({params}: {params : {id: string}}) {
         community={thread.community}
         createdAt={thread.createdAt}
         comments={thread.children}
-        isCommented={thread.children.lengh > 0}
+        isCommented={thread.children.length > 0}
       />
 
       <ThreadComment
         threadId={thread._id}
         currentUserImage={userInfo.image}
-        currentUserId={userInfo.id}
+        currentUserId={userInfo._id}
       />
     </section>
   );
