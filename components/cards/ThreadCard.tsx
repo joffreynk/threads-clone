@@ -1,34 +1,38 @@
 type Props = {
-  id: string,
-  currentUser: string,
-  parentId: string,
-  content: string,
-  createdAt: string,
+  id: string;
+  currentUser: string;
+  parentId: string;
+  content: string;
+  createdAt: string;
   author: {
-    name: string,
-    image: string,
-    id: string,
-  },
+    name: string;
+    image: string;
+    id: string;
+  };
   community: {
-    id: string,
-    name: string,
-    image: string,
-  } | null,
+    id: string;
+    name: string;
+    image: string;
+  } | null;
   comments: {
     author: {
-      image: string,
-    },
-  }[],
-  isCommented?: boolean,
-}
+      image: string;
+    };
+  }[];
+  isComment?: boolean;
+};
 
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-export default function ThreadCard({ id, currentUser, parentId, content, author, community, createdAt, comments, isCommented}: Props) {
+export default function ThreadCard({ id, currentUser, parentId, content, author, community, createdAt, comments, isComment}: Props) {
   return (
-    <article className="flex w-full flex-col rounded-xl bg-dark-2 p-7">
+    <article
+      className={`flex w-full flex-col rounded-xl ${
+        isComment ? "px-0 xs:px-7" : "bg-dark-2 p-7"
+      }`}
+    >
       <div className="flex items-start justify-between">
         <div className="flex w-full flex-1 flex-row gap-4">
           <div className="flex flex-col items-center">
@@ -85,7 +89,7 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
                 />
               </div>
 
-              {isCommented && (
+              {comments.length > 0 && (
                 <Link href={`/thread/${id}`}>
                   <p className="mt-1 text-subtle-medium text-gray-1">
                     {comments.length}{" "}

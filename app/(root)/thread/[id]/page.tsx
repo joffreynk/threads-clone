@@ -29,7 +29,6 @@ export default async function page({params}: {params : {id: string}}) {
         community={thread.community}
         createdAt={thread.createdAt}
         comments={thread.children}
-        isCommented={thread.children.length > 0}
       />
 
       <ThreadComment
@@ -37,6 +36,23 @@ export default async function page({params}: {params : {id: string}}) {
         currentUserImage={userInfo.image}
         currentUserId={userInfo._id}
       />
+
+    <div className='mt-10 flex flex-col gap-6'>
+      {thread.children.map((childItem: any) => (
+        <ThreadCard
+          key={childItem._id}
+          id={childItem._id}
+          currentUser={user?.id}
+          parentId={thread._id}
+          content={childItem.text}
+          author={childItem.author}
+          community={childItem.community}
+          createdAt={childItem.createdAt}
+          comments={childItem.children}
+          isComment={true}
+        />
+      ))}
+    </div>
     </section>
   );
 }
