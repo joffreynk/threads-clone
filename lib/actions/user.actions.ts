@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
 import dbConnection from "../mongoConnection";
 import Thread from "../models/thread.model";
+import { FilterQuery, SortOrder } from "mongoose";
 
 type Params = {
    userId: string,
@@ -86,5 +87,50 @@ export async function getUsersThreads(id: string){
       return threads;
   } catch (error: any) {
     throw new Error(`Error fetching threads: ${error.message}`);
+  }
+}
+
+export async function searchUsers({
+  userId,
+  searchString,
+  pageNumber = 1,
+  pageSize = 20,
+  sortBy = "desc",
+}: {
+  userId: string;
+  searchString: string;
+  pageNumber?: number;
+  pageSize?: number;
+  sortBy?: SortOrder;
+}) {
+  try {
+    await dbConnection();
+    const skipAmount = (pageNumber-1)*pageSize;
+    const regex = new RegExp(searchString, 'i');
+    const query: FilterQuery<typeof User> = {id: {$ne: userId}};
+
+    if(searchString.trim() !== ''){
+      query.$or = [
+        { name: { $regex: regex } },
+        { username: { $regex: regex } },
+      ];
+    }
+
+    const sortOptions = {createdAt: sortBy}
+
+    const users = await User.find(query)
+      .skip(skipAmount)
+      .limit(pageSize)
+      .sort(sortOptions)
+      .exec();
+
+    const totalUsers = await User.countDocuments(query);
+
+    const isNext = totalUsers > users.length
+
+    return {users, isNext}
+
+  } catch (error: any) {
+    throw new Error(`Error fetching users: ${error.message}`)
   }
 }
