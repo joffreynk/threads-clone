@@ -10,6 +10,7 @@ export default async function page() {
   if (!user) return null;
   const userInfo = await getUser(user.id);
   if (!userInfo) return redirect("/onboarding");
+
   const {users} = await searchUsers({userId: user.id, searchString:''})
 
   return (
@@ -20,18 +21,20 @@ export default async function page() {
 
       <div className="mt-14 flex flex-col gap-9">
         {users.length === 0 ? (
-            <p className="no-result"> No Users found</p>
-        ): (
-            <>
-            {users.map((person) => (<UserCard
+          <p className="no-result"> No Users found</p>
+        ) : (
+          <>
+            {users.map((person) => (
+              <UserCard
                 key={person.id}
-                id={person.id}
+                id={person._id}
                 name={person.name}
                 username={person.username}
                 image={person.image}
                 personType="User"
-                 />))}
-            </>
+              />
+            ))}
+          </>
         )}
       </div>
     </section>
