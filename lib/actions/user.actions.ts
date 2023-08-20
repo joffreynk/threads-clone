@@ -63,7 +63,7 @@ export async function getUserById(id: String) {
   }
 }
 
-export async function getUsersPosts(id: string){
+export async function getUsersThreads(id: string){
   try {
     await dbConnection();
 

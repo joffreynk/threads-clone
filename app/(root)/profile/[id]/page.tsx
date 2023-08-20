@@ -4,11 +4,9 @@ import { redirect } from "next/navigation";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import ThreadCard from "@/components/cards/ThreadCard";
 import ProfilePage from "@/components/shared/ProfileHeader";
 import ThreadsTab from "@/components/shared/ThreadsTab";
 import { profileTabs } from "@/constants";
-import { getThreads } from "@/lib/actions/thread.actions";
 import {  getUserById } from "@/lib/actions/user.actions";
 
 export default async function page({params}: {params: {id: string}}) {
@@ -17,7 +15,6 @@ export default async function page({params}: {params: {id: string}}) {
 
   const userInfo = await getUserById(params.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
-    const  {threads}  = await getThreads();
 
 
   return (
@@ -68,22 +65,6 @@ export default async function page({params}: {params: {id: string}}) {
         </Tabs>
       </div>
 
-      <div className="mt-10 flex flex-col gap-6">
-        {threads.map((childItem: any) => (
-          <ThreadCard
-            key={childItem._id}
-            id={childItem._id}
-            currentUser={user?.id}
-            parentId={childItem._id}
-            content={childItem.text}
-            author={childItem.author}
-            community={childItem.community}
-            createdAt={childItem.createdAt}
-            comments={childItem.children}
-            isComment={true}
-          />
-        ))}
-      </div>
     </section>
   );
 }
