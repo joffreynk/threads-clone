@@ -18,17 +18,23 @@ export default async function page() {
       <section className="mt-10 flex flex-col gap-5">
         {actitvies.length < 0 ? (
           <p className="no-result">No activity yet</p>
-        ): (
+        ) : (
           actitvies.map((activity) => (
             <Link key={activity._id} href={`/thread/${activity.parentId}`}>
               <article className="activity-card">
-                <Image
-                src={activity.author.image}
-                alt="profile photo"
-                width={30}
-                height={30}
-                className="rounded-full object-cover"
-                />
+                <Link href={`/profile/${activity.author._id}`} className="flex justify-center items-end gap-2">
+                  <Image
+                    src={activity.author.image}
+                    alt="profile photo"
+                    width={30}
+                    height={30}
+                    className="rounded-full object-cover"
+                  />
+                  <span className=" text-light-1">{activity.author.name}</span>
+                </Link>
+                <p className="!text-small-regular text-light-1 ml-6">
+                  replied to your thread
+                </p>
               </article>
             </Link>
           ))
