@@ -17,6 +17,7 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { Textarea } from "../ui/textarea";
 import { addCommentThread } from "@/lib/actions/thread.actions";
+import { useOrganization } from "@clerk/nextjs";
 
 export default function ThreadComment({
   threadId,
@@ -29,6 +30,7 @@ export default function ThreadComment({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+   const {organization} = useOrganization()
 
   const form = useForm({
     resolver: zodResolver(CommentValidation),
@@ -42,6 +44,7 @@ export default function ThreadComment({
       path: pathname,
       text: values.thread,
       threadId: threadId,
+      communityId: organization? organization.id : null,
       currentUserId,
     });
     router.push("/");

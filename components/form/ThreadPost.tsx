@@ -10,8 +10,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { createThread } from "@/lib/actions/thread.actions";
+import { useOrganization } from "@clerk/nextjs";
 
 export default function ThreadPost({ userId }: { userId: string }) {
+  const {organization} = useOrganization()
   const pathname = usePathname();
   const router = useRouter();
 
@@ -24,9 +26,10 @@ export default function ThreadPost({ userId }: { userId: string }) {
   });
 
   async function onSubmit(values: z.infer<typeof ThreadValidation>) {
-    await createThread({ text: values.thread, author: userId, path: pathname });
+    await createThread({ text: values.thread, author: userId,communityId: organization? organization.id : null , path: pathname });
     router.push("/");
   }
+
 
   return (
     <Form {...form} >

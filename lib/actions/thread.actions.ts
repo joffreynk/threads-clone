@@ -8,13 +8,14 @@ import dbConnection from "../mongoConnection";
 type params = {
   text: string;
   author: string;
-  communityId?: string;
+  communityId: string | null;
   path: string;
 };
 
 type Comment = {
   threadId: string;
   currentUserId: string;
+  communityId: string | null;
   text: string;
   path: string;
 };
@@ -119,6 +120,7 @@ export const getThreadById = async (id: string) => {
 export const addCommentThread = async ({
   threadId,
   currentUserId,
+  communityId,
   text,
   path,
 }: Comment) => {
@@ -133,6 +135,7 @@ export const addCommentThread = async ({
       text,
       author: currentUserId,
       parentId: threadId,
+      communityId,
     });
 
     // Update parent thread
