@@ -100,6 +100,18 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
             </div>
           </div>
         </div>
+        {/* TODO: Delete thread */}
+        {/* TODO: show comment logos */}
+
+        {
+          isComment && community && (
+            <Link href={`/community/${community.id}`} className='mt-5 flex items-center'>
+              <p>
+                {format}
+              </p>
+            </Link>
+          )
+        }
       </div>
     </article>
   );
