@@ -22,6 +22,7 @@ type Props = {
   isComment?: boolean;
 };
 
+import { formatDateString } from '@/lib/utils';
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -106,9 +107,16 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
         {
           isComment && community && (
             <Link href={`/community/${community.id}`} className='mt-5 flex items-center'>
-              <p>
-                {format}
+              <p className='text-subtle-mdeium text-gray-1'>
+                {formatDateString(createdAt)} - {community.name} community
               </p>
+              <Image
+                src={community.image}
+                alt="community image"
+                width={15}
+                height={15}
+                className="rounded-full"
+                />
             </Link>
           )
         }
