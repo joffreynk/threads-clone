@@ -37,7 +37,10 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
       <div className="flex items-start justify-between">
         <div className="flex w-full flex-1 flex-row gap-4">
           <div className="flex flex-col items-center">
-            <Link href={`/profile/${author._id}`} className="relative h-11 w-11">
+            <Link
+              href={`/profile/${author._id}`}
+              className="relative h-11 w-11"
+            >
               <Image
                 src={author.image}
                 alt="author image"
@@ -101,25 +104,28 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
             </div>
           </div>
         </div>
+         {/* @ts-ignore */}
         {/* TODO: Delete thread */}
         {/* TODO: show comment logos */}
-
-        {
-          isComment && community && (
-            <Link href={`/community/${community.id}`} className='mt-5 flex items-center'>
-              <p className='text-subtle-mdeium text-gray-1'>
-                {formatDateString(createdAt)} - {community.name} community
-              </p>
-              <Image
-                src={community.image}
-                alt="community image"
-                width={15}
-                height={15}
-                className="rounded-full"
-                />
-            </Link>
-          )
-        }
+        {/* {console.log("COMMUNITY", community?.name)} */}
+        
+        {isComment && community && (
+          <Link
+            href={`/community/${community.id}`}
+            className="mt-5 flex items-center"
+          >
+            <p className="text-subtle-mdeium text-gray-1">
+              {formatDateString(createdAt)} - {community.name} community
+            </p>
+            <Image
+              src={community.image}
+              alt="community image"
+              width={15}
+              height={15}
+              className="rounded-full"
+            />
+          </Link>
+        )}
       </div>
     </article>
   );

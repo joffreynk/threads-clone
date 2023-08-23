@@ -34,7 +34,7 @@ export default async function ThreadsTab({
           community={thread.community}
           createdAt={thread.createdAt}
           comments={thread.children}
-          isComment={true}
+          isComment={thread.parentId ? true : false}
         />
       ))}
     </section>

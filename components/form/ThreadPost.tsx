@@ -26,7 +26,7 @@ export default function ThreadPost({ userId }: { userId: string }) {
   });
 
   async function onSubmit(values: z.infer<typeof ThreadValidation>) {
-    await createThread({ text: values.thread, author: userId,communityId: organization? organization.id : null , path: pathname });
+    await createThread({ text: values.thread, author: userId,communityId: organization ? organization.id : null , path: pathname });
     router.push("/");
   }
 
