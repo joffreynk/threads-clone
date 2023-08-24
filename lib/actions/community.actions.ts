@@ -16,9 +16,6 @@ export async function createCommunity(
   bio: string,
   createdById: string // Change the parameter name to reflect it's an id
 ) {
-  console.log('====================================');
-  console.log('CREATING COMMUNITY');
-  console.log('====================================');
   try {
     await dbConnection()
 
