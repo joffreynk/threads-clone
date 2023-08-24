@@ -162,48 +162,53 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
         </PopoverContent>
       </Popover>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Create Community</DialogTitle>
-          <DialogDescription>
-            create your community and share interest
-          </DialogDescription>
-        </DialogHeader>
-        <div>
-          <div className="space-y-4 py-2 pb-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Team name</Label>
-              <Input id="name" placeholder="Acme Inc." />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="plan">Subscription plan</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a plan" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="free">
-                    <span className="font-medium">Free</span> -{" "}
-                    <span className="text-muted-foreground">
-                      Trial for two weeks
-                    </span>
-                  </SelectItem>
-                  <SelectItem value="pro">
-                    <span className="font-medium">Pro</span> -{" "}
-                    <span className="text-muted-foreground">
-                      $9/month per user
-                    </span>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+        <form>
+          <DialogHeader>
+            <DialogTitle>Create Community</DialogTitle>
+            <DialogDescription>
+              create your community and share interest
+            </DialogDescription>
+          </DialogHeader>
+          <div>
+            <div className="space-y-4 py-2 pb-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Team name</Label>
+                <Input id="name" placeholder="Acme Inc." />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="plan">Subscription plan</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a plan" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="free">
+                      <span className="font-medium">Free</span> -{" "}
+                      <span className="text-muted-foreground">
+                        Trial for two weeks
+                      </span>
+                    </SelectItem>
+                    <SelectItem value="pro">
+                      <span className="font-medium">Pro</span> -{" "}
+                      <span className="text-muted-foreground">
+                        $9/month per user
+                      </span>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
-        </div>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setShowNewTeamDialog(false)}>
-            Cancel
-          </Button>
-          <Button type="submit">Continue</Button>
-        </DialogFooter>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowNewTeamDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button type="submit">Continue</Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
