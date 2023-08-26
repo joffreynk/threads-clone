@@ -8,38 +8,46 @@ import User from "../models/user.model";
 import dbConnection from "../mongoConnection";
 
 
-export async function createCommunity(
+export async function createCommunity({
+  id,
+  userId,
+  name,
+  username,
+  image,
+  bio,
+}: {
   id: string,
-  name: string,
-  username: string,
-  image: string,
-  bio: string,
-  createdById: string // Change the parameter name to reflect it's an id
-) {
+  userId: string,
+  name: string;
+  username: string;
+  image: string;
+  bio: string;
+}) {
   try {
-    await dbConnection()
+    await dbConnection();
 
     // Find the user with the provided unique id
-    const user = await User.findOne({ id: createdById });
+    const user = await User.findOne({ id: userId });
 
     if (!user) {
       throw new Error("User not found"); // Handle the case if the user with the id is not found
     }
 
-    const newCommunity = new Community({
-      id,
-      name,
-      username,
-      image,
-      bio,
-      createdBy: user._id, // Use the mongoose ID of the user
-    });
-
-    const createdCommunity = await newCommunity.save();
+    const createdCommunity = Community.findByIdAndUpdate(
+      { id },
+      {
+        name,
+        username,
+        image,
+        bio,
+      }
+    );
 
     // Update User model
-    user.communities.push(createdCommunity._id);
-    await user.save();
+    if(!id.length){
+      user.communities.push(createdCommunity._id);
+      await user.save();
+    }
 
     return createdCommunity;
   } catch (error) {

@@ -42,6 +42,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import CreateCommunity from "../form/CreateCommunity";
 
 const groups = [
   {
@@ -92,19 +93,22 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
             role="combobox"
             aria-expanded={open}
             aria-label="Select a team"
-            className={cn("w-[300px] justify-between md:hidden", className)}
+            className={cn(
+              "w-[250px] max-md:w-20 justify-between flex items-center",
+              className
+            )}
           >
-            <Avatar className="mr-2 h-5 w-5">
+            <Avatar className="h-10 w-10">
               <AvatarImage
                 src={`https://avatar.vercel.sh/${selectedTeam.value}.png`}
                 alt={selectedTeam.label}
               />
             </Avatar>
-            {selectedTeam.label}
-            <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+            <span className="max-md:hidden">{selectedTeam.label}</span>
+            <CaretSortIcon className=" h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[300px] p-0">
+        <PopoverContent className="w-[205px] p-0">
           <Command>
             <CommandList>
               <CommandInput placeholder="Search team..." />
@@ -161,55 +165,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
           </Command>
         </PopoverContent>
       </Popover>
-      <DialogContent>
-        <form>
-          <DialogHeader>
-            <DialogTitle>Create Community</DialogTitle>
-            <DialogDescription>
-              create your community and share interest
-            </DialogDescription>
-          </DialogHeader>
-          <div>
-            <div className="space-y-4 py-2 pb-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Team name</Label>
-                <Input id="name" placeholder="Acme Inc." />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="plan">Subscription plan</Label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a plan" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="free">
-                      <span className="font-medium">Free</span> -{" "}
-                      <span className="text-muted-foreground">
-                        Trial for two weeks
-                      </span>
-                    </SelectItem>
-                    <SelectItem value="pro">
-                      <span className="font-medium">Pro</span> -{" "}
-                      <span className="text-muted-foreground">
-                        $9/month per user
-                      </span>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowNewTeamDialog(false)}
-            >
-              Cancel
-            </Button>
-            <Button type="submit">Continue</Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
+      <CreateCommunity />
     </Dialog>
   );
 }
