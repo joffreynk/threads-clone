@@ -12,6 +12,7 @@ import {  getUserById } from "@/lib/actions/user.actions";
 export default async function page({params}: {params: {id: string}}) {
   const user = await currentUser();
   if (!user) redirect("/sign-in");
+  
 
   const userInfo = await getUserById(params.id);
   if (!userInfo?.onboarded) redirect("/onboarding");

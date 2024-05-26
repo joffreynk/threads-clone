@@ -56,7 +56,7 @@ const LeftSideBar = () => {
         <div className="hidden md:flex gap-2 items-center pl-4 pt-16 cursor-pointer">
           <SignedIn>
             <div className="flex cursor-pointer">
-              <SignOutButton signOutCallback={()=>router.push('/sign-in')}>
+              <SignOutButton>
                 <Image
                   src="/assets/logout.svg"
                   alt="logo out"
@@ -66,7 +66,7 @@ const LeftSideBar = () => {
               </SignOutButton>
             </div>
           </SignedIn>
-          <p className="text-light-2 max-lg:hidden">Logout</p>              
+          <p className="text-light-2 max-lg:hidden">Logout</p>
         </div>
       </div>
     </section>
