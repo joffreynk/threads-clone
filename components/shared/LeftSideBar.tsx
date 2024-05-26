@@ -1,34 +1,30 @@
 'use client'
 
-import { redirect, usePathname, useRouter} from 'next/navigation'
+import { redirect, usePathname} from 'next/navigation'
 import { SignedIn, SignOutButton, useAuth } from "@clerk/nextjs";
 import Link from 'next/link'
 import Image from 'next/image'
-
+import { useEffect, useState } from 'react';
 
 import { sidebarLinks } from '@/constants'
 import { SideBarProps } from '@/types'
-import { useEffect, useState } from 'react';
 import { getUser } from '@/lib/actions/user.actions';
 
 const LeftSideBar = () => {
   const { userId } = useAuth();
   const pathname = usePathname()
-  const [current, setCurrent] = useState('')
-  const [isMounted, setIsMounted] = useState(false);
-  const router = useRouter()
+  const [current, setCurrent] = useState(userId || '')
+  if (!userId) redirect("/sign-in");
 
-  useEffect(()=>{
-    const getCurrentUser = async()=>{
-      const userInfo = await getUser(userId || '');
-      if (!userInfo) redirect("/sign-in");
-      setCurrent(userInfo._id);
-    }
-    getCurrentUser()
-    setIsMounted(true)
-  }, [userId]);
+  // useEffect(() => {
+  //   const getCurrentUser = async () => {
+  //     const userInfo = await getUser(userId || "");
+  //     if (!userInfo) redirect("/onboarding");
+  //     setCurrent(userInfo._id.toString());
+  //   };
+  //   getCurrentUser();
+  // }, [userId]);
 
-  if(isMounted === false) return null;
   if(!current.length) return null;
 
   return (

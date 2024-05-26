@@ -13,21 +13,21 @@ import { getUser } from '@/lib/actions/user.actions';
 const Footer = () => {
       const { userId } = useAuth();
       const pathname = usePathname();
-      const [current, setCurrent] = useState("");
+      const [current, setCurrent] = useState(userId || '');
       const [isMounted, setIsMounted] = useState(false);
       const router = useRouter();
 
-      useEffect(() => {
-        const getCurrentUser = async () => {
-          const userInfo = await getUser(userId || "");
-          if (!userInfo) redirect("/sign-in");
-          setCurrent(userInfo._id);
-        };
-        getCurrentUser();
-        setIsMounted(true);
-      }, [userId]);
+      // useEffect(() => {
+      //   const getCurrentUser = async () => {
+      //     const userInfo = await getUser(userId || "");
+      //     if (!userInfo) redirect("/sign-in");
+      //     setCurrent(userInfo.id);
+      //   }
+      //   getCurrentUser();
+      //   setIsMounted(true);
+      // }, [userId])
 
-      if (isMounted === false) return null;
+      // if (isMounted === false) return null;
       if (!current.length) return null;
   return (
     <section className="bottombar">
