@@ -13,7 +13,7 @@ import { getUser } from '@/lib/actions/user.actions';
 const LeftSideBar = () => {
   const { userId } = useAuth();
   const pathname = usePathname()
-  const [current, setCurrent] = useState(userId || '')
+  const [current, setCurrent] = useState(userId ||'')
   if (!userId) redirect("/sign-in");
 
   // useEffect(() => {
