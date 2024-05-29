@@ -13,19 +13,19 @@ import { getUser } from '@/lib/actions/user.actions';
 const LeftSideBar = () => {
   const { userId } = useAuth();
   const pathname = usePathname()
-  const [current, setCurrent] = useState(userId ||'')
+  const [current, setCurrent] = useState('')
   if (!userId) redirect("/sign-in");
 
-  // useEffect(() => {
-  //   const getCurrentUser = async () => {
-  //     const userInfo = await getUser(userId || "");
-  //     if (!userInfo) redirect("/onboarding");
-  //     setCurrent(userInfo._id.toString());
-  //   };
-  //   getCurrentUser();
-  // }, [userId]);
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const userInfo = await getUser(userId || "");
+      if (!userInfo && !userInfo?.onboarded) redirect("/onboarding");
+      setCurrent(`${userInfo?._id}`);
+    };
+    getCurrentUser();
+  }, [userId]);
 
-  if(!current.length) return null;
+  if(!current?.length) return null;
 
   return (
     <section className="custom-scrollbar leftsidebar">
