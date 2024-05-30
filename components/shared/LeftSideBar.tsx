@@ -17,12 +17,22 @@ const LeftSideBar = () => {
   if (!userId) redirect("/sign-in");
 
   useEffect(() => {
-    const getCurrentUser = async () => {
-      const userInfo = await getUser(userId || "");
-      if (!userInfo && !userInfo?.onboarded) redirect("/onboarding");
-      setCurrent(`${userInfo?._id}`);
+    const fetchCurrentUser = async () => {
+      try {
+        if (userId) {
+          const userInfo = await getUser(userId);
+          if (userInfo && userInfo?.onboarded) {
+            setCurrent(`${userInfo?._id}`); // Ensure userInfo._id is a string or a plain type
+          }
+        } else {
+          redirect('/onboarding');
+        }
+      } catch (error) {
+        console.error('Failed to fetch user info:', error);
+      }
     };
-    getCurrentUser();
+
+    fetchCurrentUser();
   }, [userId]);
 
   if(!current?.length) return null;

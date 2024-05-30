@@ -13,22 +13,30 @@ import { getUser } from '@/lib/actions/user.actions';
 const Footer = () => {
       const { userId } = useAuth();
       const pathname = usePathname();
-      const [current, setCurrent] = useState(userId || '');
+      const [current, setCurrent] = useState('');
       const [isMounted, setIsMounted] = useState(false);
       const router = useRouter();
 
-      // useEffect(() => {
-      //   const getCurrentUser = async () => {
-      //     const userInfo = await getUser(userId || "");
-      //     if (!userInfo) redirect("/sign-in");
-      //     setCurrent(userInfo.id);
-      //   }
-      //   getCurrentUser();
-      //   setIsMounted(true);
-      // }, [userId])
-
-      // if (isMounted === false) return null;
-      if (!current.length) return null;
+      useEffect(() => {
+        const fetchCurrentUser = async () => {
+          try {
+            if (userId) {
+              const userInfo = await getUser(userId);
+              if (userInfo && userInfo?.onboarded) {
+                setCurrent(`${userInfo?._id}`); // Ensure userInfo._id is a string or a plain type
+              }
+            } else {
+              redirect('/onboarding');
+            }
+          } catch (error) {
+            console.error('Failed to fetch user info:', error);
+          }
+        };
+    
+        fetchCurrentUser();
+      }, [userId]);
+    
+      if(!current?.length) return null;
   return (
     <section className="bottombar">
       <div className="bottombar_container">

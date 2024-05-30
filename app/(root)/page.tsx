@@ -8,7 +8,7 @@ export default async function Home() {
   const user  = await currentUser()
   if (!user) return redirect('/sign-in');
   const userInfo = await getUser(user?.id.toString());
-  if (!userInfo || !userInfo.onboarded) redirect("/onboarding");
+  if (!userInfo || !userInfo?.onboarded) redirect("/onboarding");
 
   const {threads, isNext} = await getThreads(1, 30)
 

@@ -47,7 +47,8 @@ export async function createAndUpdateUser({
 export async function getUser(id: String) {
   try {
     await dbConnection();
-    return await User.findOne({ id });
+    const user = await User.findOne({ id });
+    return user.toObject()  // Convert Mongoose object to plain JavaScript object
   } catch (error: any) {
     console.log(`Failed to create/update user: ${error.message}`);
     return new Error(`Failed to create/update user: ${error.message}`);
