@@ -11,15 +11,17 @@ export default async function page() {
   const userInfo = await getUser(user.id);
   if (!userInfo) return redirect("/onboarding");
 
-  const actitvies = await getMyActivities(userInfo._id);
+  const activities = await getMyActivities(userInfo._id);
+  console.log('ACTIVITIES', activities);
+  
   return (
     <section>
       <h1 className="head-text mb-10">Activity</h1>
       <section className="mt-10 flex flex-col gap-5">
-        {actitvies.length < 0 ? (
+        {activities.length < 0 ? (
           <p className="no-result">No activity yet</p>
         ) : (
-          actitvies.map((activity) => (
+          activities.map((activity) => (
             <Link key={activity._id} href={`/thread/${activity.parentId}`}>
               <article className="activity-card">
                 <Link href={`/profile/${activity.author._id}`} className="flex justify-center items-end gap-2">
