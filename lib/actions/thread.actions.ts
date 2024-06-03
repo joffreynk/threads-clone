@@ -5,6 +5,7 @@ import Thread from "../models/thread.model";
 import User from "../models/user.model";
 import dbConnection from "../mongoConnection";
 import Community from "../models/community.model";
+import Community from './../models/community.model';
 
 type params = {
   text: string;
@@ -27,16 +28,18 @@ export const createThread = async ({
   communityId,
   path,
 }: params) => {
+  
   try {
     await dbConnection();
      const communityIdObject = await Community.findOne(
        { id: communityId },
        { _id: 1 }
      );
+     const creationCommunityId = communityIdObject._id
     const createdThread = await Thread.create({
       text,
       author,
-      community: communityIdObject, // Assign communityId if provided, or leave it null for personal account
+      community: creationCommunityId, // Assign communityId if provided, or leave it null for personal account
     });
 
     // update user's threads
@@ -46,9 +49,9 @@ export const createThread = async ({
       },
     });
 
-     if (communityIdObject) {
+     if (creationCommunityId) {
        // Update Community model
-       await Community.findByIdAndUpdate(communityIdObject, {
+       await Community.findByIdAndUpdate(creationCommunityId, {
          $push: { threads: createdThread._id },
        });
      }
