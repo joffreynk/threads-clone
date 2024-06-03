@@ -109,10 +109,11 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
         {/* TODO: show comment logos */}
         {/* {console.log("COMMUNITY", community?.name)} */}
         
-        {isComment && community && (
+      </div>
+        { community && (
           <Link
             href={`/community/${community.id}`}
-            className="mt-5 flex items-center"
+            className="mt-5 flex items-center gap-3"
           >
             <p className="text-subtle-mdeium text-gray-1">
               {formatDateString(createdAt)} - {community.name} community
@@ -120,13 +121,12 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
             <Image
               src={community.image}
               alt="community image"
-              width={15}
-              height={15}
+              width={25}
+              height={25}
               className="rounded-full"
             />
           </Link>
         )}
-      </div>
     </article>
   );
 }

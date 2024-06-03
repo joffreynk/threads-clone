@@ -5,7 +5,6 @@ import Thread from "../models/thread.model";
 import User from "../models/user.model";
 import dbConnection from "../mongoConnection";
 import Community from "../models/community.model";
-import Community from './../models/community.model';
 
 type params = {
   text: string;
