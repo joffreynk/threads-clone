@@ -107,7 +107,7 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
       </div>
         { community && (
           <Link
-            href={`/community/${community.id}`}
+            href={`/community/${community._id}`}
             className="mt-5 flex items-center gap-3"
           >
             <p className="text-subtle-mdeium text-gray-1">
