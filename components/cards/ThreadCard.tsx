@@ -104,11 +104,6 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
             </div>
           </div>
         </div>
-         {/* @ts-ignore */}
-        {/* TODO: Delete thread */}
-        {/* TODO: show comment logos */}
-        {/* {console.log("COMMUNITY", community?.name)} */}
-        
       </div>
         { community && (
           <Link
@@ -127,6 +122,9 @@ export default function ThreadCard({ id, currentUser, parentId, content, author,
             />
           </Link>
         )}
+        <div className=''>
+
+        </div>
     </article>
   );
 }
