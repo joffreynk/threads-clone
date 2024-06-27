@@ -5,29 +5,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import ProfilePage from "@/components/shared/ProfileHeader";
 import ThreadsTab from "@/components/shared/ThreadsTab";
-import {fetchCommunityDetails} from '@/lib/actions/community.actions'
 import { communityTabs } from "@/constants";
+import { fetchCommunityDetails } from "@/lib/actions/community.actions";
 
 export default async function page({params}: {params: {id: string}}) {
   const user = await currentUser();
-  
   if(!user) return null;
 
-  console.log('LOGGED IN USER WAS AVAILABLE');
   
-
   const communityDetails = await fetchCommunityDetails(params.id)
-
 
   return (
     <section>
       <ProfilePage
         accountId={communityDetails._id}
-        authUserId={user.id}
+        authUserId={communityDetails.createdBy._id}
         name={communityDetails.name}
         username={communityDetails.username}
         imageUrl={communityDetails.image}
         bio={communityDetails.bio}
+        type='Community'
       />
 
       <div className="mt-9">
@@ -57,9 +54,26 @@ export default async function page({params}: {params: {id: string}}) {
             >
               <ThreadsTab
                 currentUserId={user.id}
-                accountId={communityDetails.id}
-                accountType="User"
+                accountId={`${communityDetails._id}`}
+                accountType="Community"
               />
+            </TabsContent>
+            <TabsContent
+              value='members'
+              className="w-full text-light-1"
+            >
+              
+              
+
+            </TabsContent>
+            <TabsContent
+              value='request'
+              className="w-full text-light-1"
+            >
+              
+              
+
+
             </TabsContent>
         </Tabs>
       </div>

@@ -6,10 +6,11 @@ type ProfileProps = {
   name: string,
   username: string,
   imageUrl: string,
-  bio: string
+  bio: string,
+  type?: 'User' | 'Community'
 }
 
-export default function ProfileHeader({accountId, authUserId, name, username, imageUrl, bio}: ProfileProps) {
+export default function ProfileHeader({accountId, authUserId, name, username, imageUrl, bio, type}: ProfileProps) {
   return (
     <div className="flex w-full flex-col justify-start">
       <div className="flex items-center justify-between">

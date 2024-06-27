@@ -70,7 +70,7 @@ export async function fetchCommunityDetails(id: string) {
       },
     ]);
 
-    return communityDetails;
+    return communityDetails.toObject();
   } catch (error) {
     // Handle any errors
     console.error("Error fetching community details:", error);
